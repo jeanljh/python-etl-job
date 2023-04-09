@@ -15,7 +15,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS dim_country
 with open('dim_country.csv', newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        # Look up for the country code (case insensitive)
+        # Look up for the country code (case insensitive). If does not exist, create one in dim_country
         country_name = row['country_name']
         c.execute('SELECT country_code FROM dim_country WHERE LOWER(country_name) = LOWER(?)', (country_name.lower(),))
         result = c.fetchone()
